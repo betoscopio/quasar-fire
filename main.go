@@ -2,28 +2,17 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"quasar-fire/server"
 	utils "quasar-fire/utils"
 )
 
 func main() {
-	sat := make([]utils.Satellite, 0)
+	//sat := make([]utils.Satellite, 0)
 
 	fmt.Println("Operación 'Fuergo de Quasar'")
 
-	sat = append(sat,
-		utils.Satellite{
-			Name:  "Kenobi",
-			Point: utils.Point{X: -500, Y: -200},
-		},
-		utils.Satellite{
-			Name:  "Skywalker",
-			Point: utils.Point{X: 100, Y: -100},
-		},
-		utils.Satellite{
-			Name:  "Sato",
-			Point: utils.Point{X: 500, Y: 100},
-		},
-	)
+	sat := utils.InitSatellites()
 
 	kenobi := utils.Satellite{
 		Name:  "Kenobi",
@@ -50,11 +39,7 @@ func main() {
 	fmt.Println(skywalker)
 	fmt.Println(sato)
 	fmt.Println(quasarFire)
-	/*
-		r1 := quasarFire.Distance(kenobi.Point)
-		r2 := quasarFire.Distance(skywalker.Point)
-		r3 := quasarFire.Distance(sato.Point)
-	*/
+
 	r1 := quasarFire.Distance(sat[0].Point)
 	r2 := quasarFire.Distance(sat[1].Point)
 	r3 := quasarFire.Distance(sat[2].Point)
@@ -94,7 +79,21 @@ func main() {
 	messages := [][]string{encode0, encode1, encode2}
 	fmt.Println(utils.GetMessage(messages))
 
-	fmt.Println(sat)
+	//fmt.Println(sat)
 
-	//utils.GetMessage()
+	//Defincion de handlers de URLs
+	fmt.Println("..... ..... .....")
+	fmt.Println("Iniciando servidor")
+	fmt.Println("Es posible visitar en http://localhost:8080/")
+
+	satelliteHandlers := server.NewSatellitesHandlers()
+	http.HandleFunc("/satellites", satelliteHandlers.Get)
+
+	http.HandleFunc("/", server.WelcomeHandler)
+
+	//Definición del servidor
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		panic(err)
+	}
 }
