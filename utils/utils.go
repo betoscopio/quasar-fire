@@ -8,13 +8,13 @@ import (
 var Prueba int = 10
 
 type Point struct {
-	X float64
-	Y float64
+	X float64 `json: "x"`
+	Y float64 `json: "y"`
 }
 
 type Satellite struct {
-	Name string
-	Point
+	Name  string `json: "name"`
+	Point `json: "point"`
 }
 
 type Ship struct {
@@ -32,6 +32,28 @@ func (p Point) Distance(p2 Point) float64 {
 //Calcula distancia de dos puntos sin necesitar objeto
 func DistancePoints(p1 Point, p2 Point) float64 {
 	return math.Sqrt(math.Pow(p2.X-p1.X, 2) + math.Pow(p2.Y-p1.Y, 2))
+}
+
+//Inicia los satelites Kenobi, Skywalker, Sato
+func InitSatellites() []Satellite {
+	satellites := make([]Satellite, 0)
+
+	satellites = append(satellites,
+		Satellite{
+			Name:  "Kenobi",
+			Point: Point{X: -500, Y: -200},
+		},
+		Satellite{
+			Name:  "Skywalker",
+			Point: Point{X: 100, Y: -100},
+		},
+		Satellite{
+			Name:  "Sato",
+			Point: Point{X: 500, Y: 100},
+		},
+	)
+
+	return satellites
 }
 
 // Inicializa coordenadas de satelites Kenobi, Skywalker y Sato
