@@ -7,8 +7,6 @@
 
 ### Ejecución local
 
-Descar
-Ingresar al directorio `quasar-fire`
 ```
 $ git clone https://github.com/betoscopio/quasar-fire.git
 $ cd quasar-fire/
@@ -32,3 +30,20 @@ Retorna listado de satelites predefinidos en formato JSON.
 ``` 
 $ curl localhost:8080/satellites
 ```
+
+## Generación de Imagen Docker
+
+
+### Requisitos
+
+Tener instalado Docker de manera local.
+
+```
+$ docker build -f Dockerfile -t usuario/quasar-fire:tag .
+```
+
+### Ejecución
+
+## TODOS
+
+- [ ] Automatizar generación de imagen docker y actualización con Github actions
