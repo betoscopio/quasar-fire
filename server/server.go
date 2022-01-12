@@ -12,7 +12,7 @@ type SatelliteHandlers struct {
 
 func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("<html><h1>Bienvenidos a la Operación Fuego Quasar</h1></html>"))
+	w.Write([]byte("<html><h1>Bienvenidos a la Operación Fuego Quasar</h1><p>Encuentre la ubicación de origen del mensaje.</p></html>"))
 }
 
 func (h *SatelliteHandlers) Get(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +30,7 @@ func (h *SatelliteHandlers) Get(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 	}
 
-	w.Header().Add("content-type", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonBytes)
 }
