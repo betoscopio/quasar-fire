@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-var Prueba int = 10
+var Sats Satellites
 
 type Point struct {
 	X float64 `json: "x"`
@@ -34,35 +34,33 @@ func DistancePoints(p1 Point, p2 Point) float64 {
 	return math.Sqrt(math.Pow(p2.X-p1.X, 2) + math.Pow(p2.Y-p1.Y, 2))
 }
 
-//Inicia los satelites Kenobi, Skywalker, Sato
-func InitSatellites() []Satellite {
-	satellites := make([]Satellite, 0)
+//Define estructura para almacenar y acceder a Satelites
+type Satellites struct {
+	Data []Satellite
+}
 
-	satellites = append(satellites,
+//Inicia los satelites Kenobi, Skywalker, Sato
+func (sats *Satellites) InitSatellites() {
+
+	sats.Data = append(sats.Data,
 		Satellite{
-			Name:  "Kenobi",
+			Name:  "kenobi",
 			Point: Point{X: -500, Y: -200},
 		},
 		Satellite{
-			Name:  "Skywalker",
+			Name:  "skywalker",
 			Point: Point{X: 100, Y: -100},
 		},
 		Satellite{
-			Name:  "Sato",
+			Name:  "sato",
 			Point: Point{X: 500, Y: 100},
 		},
 	)
-
-	return satellites
 }
 
 // Inicializa coordenadas de satelites Kenobi, Skywalker y Sato
-func getSatellites() (Point, Point, Point) {
-	kenobi := Point{X: -500, Y: -200}
-	skywalker := Point{X: 100, Y: -100}
-	sato := Point{X: 500, Y: 100}
-
-	return kenobi, skywalker, sato
+func (sats *Satellites) getSatellitesPositions() (Point, Point, Point) {
+	return Sats.Data[0].Point, Sats.Data[1].Point, Sats.Data[2].Point
 }
 
 // Obtiene valor de norma  vectorial de un punto (vector 2D)
@@ -102,7 +100,9 @@ func Trilateration(p1 Point, p2 Point, p3 Point, r1 float64, r2 float64, r3 floa
 //Obtiene ubicación basandose en coordenadas
 func GetLocation(r1 float32, r2 float32, r3 float32) (float32, float32) {
 	//Obtiene coordenadas de los satelites
-	kenobi, skywalker, sato := getSatellites()
+	Sats.InitSatellites()
+
+	kenobi, skywalker, sato := Sats.getSatellitesPositions()
 	point := Trilateration(kenobi, skywalker, sato, float64(r1), float64(r2), float64(r3))
 	return float32(point.X), float32(point.Y)
 }
