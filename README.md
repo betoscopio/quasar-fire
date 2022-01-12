@@ -64,3 +64,17 @@ Se ha definido un proceso automatizado de generación de tags tanto para relases
 
 Se puede visitar en la URL https://quasar-fire-d4z3rckaeq-uc.a.run.app/.
 
+## Modo de uso
+
+Urls existentes
+
+- `/` : página de bienvenida.
+- `/topsecret`: permite envío de señales en grupo para obtener una respuesta de ubicación si existen los datos necesarios (usado método POST).
+- `/topsecret_split/{satellite_name}`: Permite interactuar con un satelite en particular.
+  - Método GET, permite obtener la ubicación de la nave si existen los datos suficientes.
+  - Método POST, permite enviar una señal única nueva al satélite en particular
+- `/satellites`: muestra los satelites ingresados al sistema.
+- `/signals`: muesta las señales enviadas. 
+  - Método GET, permite ver cuales son las ingresadas.
+  - Método POST, permite enviar una señal única nueva.
+
