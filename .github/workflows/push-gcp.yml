@@ -1,4 +1,3 @@
-on: push
 name: Go Build Docker Image to Google Cloud Platform 
 # Inspired by https://github.com/antonputra/lesson-087/blob/main/.github/workflows/gcp.yml
 
