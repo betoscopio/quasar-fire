@@ -31,7 +31,7 @@ Retorna listado de satelites predefinidos en formato JSON.
 $ curl localhost:8080/satellites
 ```
 
-## Generación de Imagen Docker
+## Generación de Imagen Docker (local)
 
 
 ### Requisitos
@@ -44,6 +44,23 @@ $ docker build -f Dockerfile -t usuario/quasar-fire:tag .
 
 ### Ejecución
 
-## TODOS
+```
+$ docker run -p 8080:8080 usuario/quasar-fire:tag
+```
 
-- [ ] Automatizar generación de imagen docker y actualización con Github actions
+## Despliegue y versión en línea
+
+Se ha definido la infraestructura siguiente:
+
+- Github + Github Actions, para almacenamiento de código, generación de imágenes Docker y despliegue a Google Cloud Platform
+- Google Container Registry, que tiene buena integración con otros servicios, para almacenamiento de imagenes Docker generadas. Adicionalmente se sube a Docker Registry, para posible uso en otro tipo de despligue, pero no se usa en este caso.
+- *Google Cloud Run*, el cual hace uso de la imagen subida al *Container Registry* y hace el servicio público.
+
+### Generación de tags
+
+Se ha definido un proceso automatizado de generación de tags tanto para relases en *main*, como para las imágenes docker que son subidas al *Container Registry*. Esto se puede encontrar en el directorio `scripts/` el cual está se basa en https://github.com/antonputra/lesson-087/blob/main/scripts/git_update.sh. 
+
+## Versión en línea
+
+Se puede visitar en la URL https://quasar-fire-d4z3rckaeq-uc.a.run.app/.
+
