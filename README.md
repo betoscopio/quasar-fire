@@ -69,8 +69,8 @@ Se puede visitar en la URL https://quasar-fire-d4z3rckaeq-uc.a.run.app/.
 Urls existentes
 
 - `/` : página de bienvenida.
-- `/topsecret`: permite envío de señales en grupo para obtener una respuesta de ubicación si existen los datos necesarios (usado método POST).
-- `/topsecret_split/{satellite_name}`: Permite interactuar con un satelite en particular.
+- `/topsecret`: permite envío de señales en grupo para obtener una respuesta de ubicación si existen los datos necesarios (usado método POST). //TODO
+- `/topsecret_split/{satellite_name}`: Permite interactuar con un satelite en particular. //TODO
   - Método GET, permite obtener la ubicación de la nave si existen los datos suficientes.
   - Método POST, permite enviar una señal única nueva al satélite en particular
 - `/satellites`: muestra los satelites ingresados al sistema.
@@ -78,3 +78,47 @@ Urls existentes
   - Método GET, permite ver cuales son las ingresadas.
   - Método POST, permite enviar una señal única nueva.
 
+Obtener satélites ingresados:
+```
+$ curl -i localhost:8080/satellites
+```
+
+Revisar señales ingresadas:
+```
+$ curl -i localhost:8080/signals
+```
+
+Ingresar nueva señal:
+```
+$ curl localhost:8080/signals -X POST -H "Content-Type: application/json"  -d '{"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]}'
+```
+
+Ingresar multiples señales:
+
+```
+$ curl localhost:8080/signals -X POST -H "Content-Type: application/json"  -d '{"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]}, '
+```
+{ "satellites": [
+        {"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]},
+        {"name": "koon","distance": 125, "message": ["", "", "un", "mensaje","secreto"]},
+        {"name": "windu","distance": 145, "message": ["", "", "un", "mensaje","secreto"]}
+    ]
+}
+
+```
+$ curl localhost:8080/topsecret -X POST -H "Content-Type: application/json"  -d           
+'{ "satellites": [                                                                      
+        {"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]},
+        {"name": "koon","distance": 125, "message": ["", "", "un", "mensaje","secreto"]},
+        {"name": "windu","distance": 145, "message": ["", "", "un", "mensaje","secreto"]}
+    ]
+}'
+```
+
+```
+$ curl localhost:8080/topsecret -X POST -H "Content-Type: application/json"  -d '{ "satellites": [{"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]},{"name": "koon","distance": 125, "message": ["", "", "un", "mensaje","secreto"]},{"name": "windu","distance": 145, "message": ["", "", "un", "mensaje","secreto"]}]}'
+```
+
+```
+$ curl localhost:8080/topsecret -X POST -H "Content-Type: application/json"  -d '{ "satellites": ["a","b","c","d"]}'
+```
