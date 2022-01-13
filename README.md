@@ -21,16 +21,6 @@ Visitar URLs:
 
 Mediante línea de comando, con cliente `curl`.
 
-Mensaje de Bienvenida
-```
-$ curl localhost:8080/
-```
-
-Retorna listado de satelites predefinidos en formato JSON.
-``` 
-$ curl localhost:8080/satellites
-```
-
 ## Generación de Imagen Docker (local)
 
 
@@ -104,12 +94,6 @@ Ingresar multiples señales:
 ```
 $ curl localhost:8080/signals -X POST -H "Content-Type: application/json"  -d '{"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]}, '
 ```
-{ "satellites": [
-        {"name": "fisto","distance": 80, "message": ["este", "es", "un", "","secreto"]},
-        {"name": "koon","distance": 125, "message": ["", "", "un", "mensaje","secreto"]},
-        {"name": "windu","distance": 145, "message": ["", "", "un", "mensaje","secreto"]}
-    ]
-}
 
 ```
 $ curl localhost:8080/topsecret -X POST -H "Content-Type: application/json"  -d           
