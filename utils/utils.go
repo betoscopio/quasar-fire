@@ -22,6 +22,11 @@ type Ship struct {
 	Point
 }
 
+type SecretPosition struct {
+	Point   `json: "position"`
+	Message string `json: "message"`
+}
+
 //Calcula la distacia ente los puntos p y p2 usando la formula de distancia entre dos puntos
 func (p Point) Distance(p2 Point) float64 {
 	diffX := math.Pow(p2.X-p.X, 2)
@@ -140,6 +145,6 @@ func EncodeMessage(s string, noise int) []string {
 //Obtiene el mensaje descifrado usando una lista de strings
 func GetMessage(messages [][]string) string {
 	//decodificar mensaje sumando valores
-	msg := "Este es el mensaje"
+	msg := "Este es un mensaje secreto"
 	return msg
 }
