@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Operación 'Fuergo de Quasar'")
+	fmt.Println("Operación 'Fuego de Quasar'")
 
 	sats := utils.Sats
 	sats.InitSatellites() //Inicia satelites kenobi,skywalker y sato
@@ -40,19 +40,6 @@ func main() {
 
 	fmt.Println("Quasar Fire se encuentra en: ", x, y)
 
-	encode0 := utils.EncodeMessage("este es un mensaje", 0)
-	encode1 := utils.EncodeMessage("este es un mensaje", 1)
-	encode2 := utils.EncodeMessage("este es un mensaje", 2)
-
-	fmt.Printf("\nMensajes codificados:\n")
-	fmt.Println("encode0:", encode0)
-	fmt.Println("encode1:", encode1)
-	fmt.Println("encode2:", encode2)
-
-	fmt.Printf("\nMensaje decodificado:\n")
-	messages := [][]string{encode0, encode1, encode2}
-	fmt.Println(utils.GetMessage(messages))
-
 	//Defincion de handlers de URLs
 	fmt.Println("..... ..... .....")
 	fmt.Println("Iniciando servidor")
@@ -61,10 +48,11 @@ func main() {
 	satelliteHandlers := server.NewSatellitesHandlers()
 	//messageHandlers := server.NewSignalHandlers()
 	signalHandlers := server.NewSignalHandlers()
-	//fmt.Println(*signalHandlers)
 
 	http.HandleFunc("/satellites", satelliteHandlers.Get)
-	http.HandleFunc("/topsecret", signalHandlers.Signals)
+	http.HandleFunc("/signals", signalHandlers.Signals)
+	http.HandleFunc("/topsecret", signalHandlers.SignalsMultiple)
+	http.HandleFunc("/topsecret_split", signalHandlers.SignalSat)
 
 	http.HandleFunc("/", server.WelcomeHandler)
 
