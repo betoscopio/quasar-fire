@@ -44,8 +44,14 @@ $ docker build -f Dockerfile -t usuario/quasar-fire:tag .
 
 ### Ejecución
 
+Si se ejecutó el *build* local.
 ```
 $ docker run -p 8080:8080 usuario/quasar-fire:tag
+```
+
+Si se desa usar la imagen de DockerHub
+```
+$ docker run -p 8080:8080 betoscopio/quasar-fire:1.1.1
 ```
 
 ## Despliegue y versión en línea
